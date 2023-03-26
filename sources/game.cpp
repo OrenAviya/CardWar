@@ -11,8 +11,6 @@ using namespace ariel;
 #define int CARDNUM 20
 
 
-//constructor
-
 
 void playTurn(){
 

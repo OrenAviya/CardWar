@@ -12,28 +12,22 @@ using namespace ariel;
 
 
 
-void playTurn(){
+void Game :: playTurn(){
 
 }
-void printLastTurn(){
+void Game :: printLastTurn(){
     cout << "Alice played Queen of Hearts Bob played 5 of Spades. Alice wins.";
 } 
-int stacksize()
-{
-return CARDNUM;
-}
-int cardesTaken(){
-    return CARDNUM;
-}
-void playAll(){
+
+void Game ::  playAll(){
 
 }
-void printWiner(){
+void Game ::  printWiner(){
 
 }
-void printLog(){
+void Game :: printLog(){
 
 }
-void printStats(){
+void Game :: printStats(){
     
 }

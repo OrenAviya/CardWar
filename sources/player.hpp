@@ -1,5 +1,6 @@
-#ifndef PLAYER
-#define PLAYER
+//#ifndef PLAYER
+//#define PLAYER
+#pragma once
 
 #include <iostream>
 #include <fstream>
@@ -17,7 +18,7 @@ class Player{
 
     public:
     // define inline
-    string getName() {return (name);}
+    string getName() {return (this->name);}
     // define in cpp file
     void setName (string n) ;
 
@@ -32,9 +33,9 @@ class Player{
     name = z; 
     }
 
-void stacksize();
-void cardesTaken();
+int stacksize();
+int cardesTaken();
 };
 
 
-#endif PLAYER
+//#endif PLAYER

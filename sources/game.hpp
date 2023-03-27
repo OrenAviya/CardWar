@@ -1,12 +1,13 @@
-#ifndef GAME
-#define GAME 
+//#ifndef GAME
+//#define GAME
+#pragma once
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
 using namespace std;
-#include "player.hpp"
+#include "../../CardWar/sources/player.hpp"
 namespace ariel{}
 using namespace ariel;
 
@@ -24,9 +25,7 @@ Game (Player pl1 , Player pl2) {
 }
 
 void playTurn();
-void printLastTurn(); 
-int stacksize();
-int cardesTaken();
+void printLastTurn();
 void playAll();
 void printWiner(); 
 void printLog();
@@ -34,4 +33,4 @@ void printStats();
 
 };
 
-#endif GAME
+//#endif GAME

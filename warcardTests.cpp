@@ -89,11 +89,23 @@ TEST_CASE("all cards together = 52"){
     CHECK (check);
 }
 
-TEST_CASE(" If you start a game with more than 2 players"){
+TEST_CASE(" If the turn-winner take the cards"){
+    Player one("one") ;
+    Player two("two") ;
+    Game g(one  , two);
+    g.playTurn();
+    string name = g.printLastTurn();
+    bool o = true;
+    bool t = true;
+    if(one.getName().compare(name))
+        CHECK(o);
+    if (two.getName().compare(name))
+        CHECK(t);
 
 }
 
-TEST_CASE(" if you can`t play another turn after game ends")
+
+TEST_CASE(" You must not be able to play another turn after game ends")
 {
     Player one("one") ;
     Player two("two") ;

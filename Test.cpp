@@ -70,7 +70,6 @@ cout << "check if there is a winner after play ";
 }
 
 TEST_CASE("play turn ->at list minus 1 card each"){
-    cout << "play turn ->at list minus 1 card each ";
     Player one("one") ;
     Player two("two") ;
     int s1First = one.stacksize();
@@ -84,7 +83,6 @@ TEST_CASE("play turn ->at list minus 1 card each"){
 }
 
 TEST_CASE("all cards together = 52"){
-    cout <<"all cards together = 52";
     Player one("one") ;
     Player two("two") ;
     int s1First = one.stacksize();
@@ -98,9 +96,7 @@ TEST_CASE("all cards together = 52"){
         check = false;
     CHECK (check);
 }
-
-TEST_CASE(" If the turn-winner take the cards"){
-    cout <<" If the turn-winner take the cards";
+TEST_CASE("check if there is a winner every turn"){
     Player one("one") ;
     Player two("two") ;
     Game g(one  , two);
@@ -115,10 +111,23 @@ TEST_CASE(" If the turn-winner take the cards"){
 
 }
 
+TEST_CASE(" If the turn-winner take the cards"){
+    Player one("one") ;
+    Player two("two") ;
+    Game g(one  , two);
+    int hand1 = one.cardesTaken();
+    int hand2 = two.cardesTaken();
+    g.playTurn();
+    string name = g.printLastTurn();
+    if(one.getName().compare(name))
+        CHECK(one.cardesTaken() > hand1);
+    if (two.getName().compare(name))
+        CHECK(two.cardesTaken() > hand2);
+}
+
 
 TEST_CASE(" You must not be able to play another turn after game ends")
 {
-    cout<<" You must not be able to play another turn after game ends";
     Player one("one") ;
     Player two("two") ;
     Game g(one  , two);
@@ -127,5 +136,77 @@ TEST_CASE(" You must not be able to play another turn after game ends")
     CHECK_THROWS(g.playTurn());
 }
 
+TEST_CASE("check if every player gets 26 cards"){
+    Player one("one") ;
+    Player two("two") ;
+    Game g(one  , two);
+    int num = 26;
+    bool division = true;
+    if (one.stacksize() !=num || two.stacksize() != num)
+        division = false;
+CHECK(division);
+}
 
+TEST_CASE("Check if both players get their names ")
+{
+    Player one("one"); //Creating player objects
+    Player two("two");
+    Game g(one, two);
+    CHECK(one.getName().compare("one"));
+    CHECK(two.getName().compare("two"));
+}
 
+TEST_CASE("test card constructor"){
+   CHECK_NOTHROW( Card c (1 , "daimond" , "red"));
+    
+}
+
+TEST_CASE("check the values of the color card - just red/black "){
+    Card c (1 , "daimond" , "red");
+    if(c.getColor() == "red" || c.getColor() =="black")
+    {
+        CHECK_NOTHROW(Card c (1 , "daimond" , "red"));
+    }
+    else{
+        CHECK_THROWS_AS(Card c(1 , "daimond" , "red") ,invalid_argument);
+    }
+}
+
+TEST_CASE("check the intilization of a card"){
+    Card c (1 , "daimond" , "red");
+    bool ok = true; 
+    if (! (c.getColor() != ""))
+    ok = false;
+    if (! (c.getNum()!= 0))
+    ok = false;
+    if (! (c.getColor() != ""))
+    ok = false;
+    CHECK(ok);
+}
+
+TEST_CASE("check the values of shape - just four options"){
+    Card c (1 , "daimonds" , "red");
+    bool correct =true;
+    if (c.getShape() != "daimonds" && c.getShape() != "spades" && c.getShape() != "hearts"
+    && c.getShape() != "clubs")
+    correct = false;
+
+    CHECK(correct);
+
+}
+
+TEST_CASE(""){
+    
+}
+
+TEST_CASE(""){
+    
+}
+
+TEST_CASE(""){
+    
+}
+
+TEST_CASE(""){
+    
+}

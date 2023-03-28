@@ -1,5 +1,3 @@
-//#ifndef PLAYER
-//#define PLAYER
 #pragma once
 
 #include <iostream>
@@ -18,7 +16,7 @@ class Player{
 
     public:
     // define inline
-    string getName() {return (this->name);}
+    string getName() {return (name);}
     // define in cpp file
     void setName (string n) ;
 
@@ -36,6 +34,3 @@ class Player{
 int stacksize();
 int cardesTaken();
 };
-
-
-//#endif PLAYER

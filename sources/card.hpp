@@ -6,7 +6,7 @@
 #include <sstream>
 #include <stdexcept>
 using namespace std;
-#include "../../CardWar/sources/player.hpp"
+#include "player.hpp"
 namespace ariel{}
 using namespace ariel;
 //#endif Card

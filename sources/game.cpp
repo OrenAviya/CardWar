@@ -8,16 +8,20 @@
 using namespace std;
 namespace ariel{}
 using namespace ariel;
-#define int CARDNUM 20
 
 
 
 void Game :: playTurn(){
 
 }
-void Game :: printLastTurn(){
+
+string Game :: printLastTurn(){
     cout << "Alice played Queen of Hearts Bob played 5 of Spades. Alice wins.";
-} 
+//if one is win
+    return this->p1.getName();
+    //else return this->p2.getName();
+}
+
 
 void Game ::  playAll(){
 

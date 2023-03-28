@@ -1,18 +1,12 @@
-#include "../../CardWar/sources/player.hpp"
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <stdexcept>
+#include "player.hpp"
 using namespace std;
-namespace ariel{}
-using namespace ariel;
 
 void Player :: setName (string n){
-     this->name = n;
+    name = n;
 }
-int Player::stacksize() {
-    return 26;
+int Player:: stacksize(){
+return 26;
 }
-int Player :: cardesTaken(){
- return 0 ;
+int Player::cardesTaken(){
+return 0;
 }

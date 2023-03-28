@@ -195,18 +195,50 @@ TEST_CASE("check the values of shape - just four options"){
 
 }
 
-TEST_CASE(""){
+TEST_CASE("Check if void func works")
+{
+    Player one("one");
+    Player two("two");
+    Game g(one, two);
+    CHECK_NOTHROW(g.printStats());
+    CHECK_NOTHROW(g.printLastTurn());
+    CHECK_NOTHROW(g.printLog());
+}
+
+TEST_CASE("If the number of reversed cards is different "){
+    Player one("one");
+    Player two("two");
+    Game g(one, two);
+    g.playTurn();
+
+    CHECK(one.cardesTaken() != two.cardesTaken());
+}
+
+TEST_CASE("if there is a player in two games , is his stacksize are intalize?"){
+    
+     Player one("one");
+    Player two("two");
+    Game g(one, two);
+    CHECK_NOTHROW(g.playTurn());
+    Player three("three");
+    CHECK_THROWS_AS(Game gam(two, three),invalid_argument);
+    bool flag;
+    if (two.stacksize() == 26)
+        flag = false;
+    else
+        flag = true;
+    CHECK(flag);
+
     
 }
 
-TEST_CASE(""){
+TEST_CASE("there is no more than 52 turns"){
+    Player one("one");
+    Player two("two");
+    Game g(one, two);
     
-}
-
-TEST_CASE(""){
-    
-}
-
-TEST_CASE(""){
-    
+    for (int i=0; i<=51; i++){
+        (g.playTurn());
+    }
+    CHECK_THROWS(g.playTurn());
 }

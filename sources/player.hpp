@@ -21,15 +21,14 @@ class Player{
     void setName (string n) ;
 
 // // Constructors:
-    Player() {
+    Player() : name{"defult"} {
       //std::cout << "defult player" << std::endl; 
-      name = "defult"; 
     }
 
-    Player(string z) { 
+    Player(string name):
    // std::cout << "Player: "+ std::to_string(z) << std::endl; 
-    name = z; 
-    }
+    name {std::move(name)}
+    {}
 
 int stacksize();
 int cardesTaken();

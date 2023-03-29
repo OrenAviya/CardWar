@@ -13,16 +13,16 @@ using namespace ariel;
 class Card{
 
 private:
-    string color;
-    int number;
-    string shape;
+    int number {};
+    string shape {};
+    string color {};
 public:
 
 // constructor:
-Card (int n , string shape , string col){
-this->number = n;
-this->color = col;
-this->shape = shape;
+Card (int n , string shape , string col):
+number{n} , shape{std::move(shape)} , color{std::move(col)} 
+{
+// using member initializer for tidy
 }
 
  void printCard();

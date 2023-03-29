@@ -12,6 +12,7 @@
 #include "string"
 using namespace std;
 
+const int FSTACKSIZE = 26;
 
 TEST_CASE("checking constructor of player"){
     CHECK_NOTHROW(Player p1("p1"));
@@ -21,8 +22,9 @@ TEST_CASE("checking methods of Player"){
     Player p1("p1");
     CHECK_NOTHROW(p1.stacksize());
     CHECK_NOTHROW(p1.cardesTaken());
-    CHECK(p1.stacksize()==26);
-    CHECK(p1.cardesTaken() == 0);
+    int CARDSIZE= 0;
+    CHECK(p1.stacksize()==FSTACKSIZE);
+    CHECK(p1.cardesTaken() == CARDSIZE);
 
 }
 TEST_CASE("checking constructor of Game"){
@@ -36,10 +38,11 @@ TEST_CASE("check if the playAll method is working "){
     Player one("one") ;
     Player two("two") ;
     Game ga( one , two );
+    int SIZE = 0 ;
     CHECK_NOTHROW(ga.playAll());
     ga.playAll();
     bool B = true;
-    if (one.stacksize() != 0 && two.stacksize()!=0)
+    if (one.stacksize() != SIZE && two.stacksize()!=SIZE)
         B = false;
     CHECK(B);
 }
@@ -52,7 +55,7 @@ cout << "check if there is a winner after play ";
     Game ga( one , two );
     ga.playAll();
     CHECK_NOTHROW(ga.printWiner());
-
+    int SIZE = 0 ;
     //  regular game:
     Player p1("one");
     Player p2("two");
@@ -61,7 +64,7 @@ cout << "check if there is a winner after play ";
    for (int i=0 ; i<5; i++)
         gam.playTurn();
     bool check;
-    if(p1.stacksize() == 0 || p2.stacksize() == 0)
+    if(p1.stacksize() == SIZE || p2.stacksize() == SIZE)
         check = true;
     else
         check = false;
@@ -85,14 +88,15 @@ TEST_CASE("play turn ->at list minus 1 card each"){
 TEST_CASE("all cards together = 52"){
     Player one("one") ;
     Player two("two") ;
+    int SIZE = 52;
     int s1First = one.stacksize();
     int s2First = two.stacksize();
     bool  check = true;
-    if (s1First + s2First != 52)
+    if (s1First + s2First != SIZE)
         check = false;
     Game g(one  , two);
     g.playTurn();
-    if (s1First + s2First + one.cardesTaken()+two.cardesTaken() != 52)
+    if (s1First + s2First + one.cardesTaken()+two.cardesTaken() != SIZE)
         check = false;
     CHECK (check);
 }
@@ -140,11 +144,10 @@ TEST_CASE("check if every player gets 26 cards"){
     Player one("one") ;
     Player two("two") ;
     Game g(one  , two);
-    int num = 26;
     bool division = true;
-    if (one.stacksize() !=num || two.stacksize() != num)
+    if (one.stacksize() !=FSTACKSIZE || two.stacksize() != FSTACKSIZE)
         division = false;
-CHECK(division);
+    CHECK(division);
 }
 
 TEST_CASE("Check if both players get their names ")
@@ -223,7 +226,7 @@ TEST_CASE("if there is a player in two games , is his stacksize are intalize?"){
     Player three("three");
     CHECK_THROWS_AS(Game gam(two, three),invalid_argument);
     bool flag;
-    if (two.stacksize() == 26)
+    if (two.stacksize() == FSTACKSIZE)
         flag = false;
     else
         flag = true;

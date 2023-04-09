@@ -14,14 +14,16 @@ using namespace ariel;
 
 
 void Game :: playTurn(){
+    if (GameOver)
+        throw invalid_argument("Game has already ended");
+
 if ( !this->AllTurns.empty() && this->AllTurns.back() != "\n "+this->LastTurn ) 
     this->AllTurns.push_back( "\n "+this->LastTurn);
-bool isover = true; //??
 bool stopturn = false;
 int num_of_rounds =0;
 
     if (p1.stacksize() >0 && p2.stacksize() >0){
-         isover = false;
+         GameOver = false;
         // each player play a card
         Card card1 = p1.GetStack().back();
         Card card2 = p2.GetStack().back();
@@ -93,11 +95,11 @@ int num_of_rounds =0;
     //and update the stacksize
         p1.SetStacksize(p1.stacksize()-1);
         p2.SetStacksize(p2.stacksize()-1);
-        isover=true;
+        GameOver=true;
         stopturn=true;
         }
         
-        while ((card1.GetRank() == card2.GetRank() ) &&  p1.stacksize() >1 &&  p2.stacksize() >1 && !isover && !stopturn){
+        while ((card1.GetRank() == card2.GetRank() ) &&  p1.stacksize() >1 &&  p2.stacksize() >1 && !GameOver && !stopturn){
             (this-> num_of_draws) ++;
              num_of_rounds ++;
             //update "last turn":
@@ -127,7 +129,6 @@ int num_of_rounds =0;
 
         // special - Ace:
         if (card1.GetRank() == 0 &&  card2.GetRank()!= 1 && !stopturn){
-            cout << "if1";
             //p1 won the 2 cards
             p1.SetCardesTaken(p1.cardesTaken()+(2+4*num_of_rounds));
             //update "last turn"
@@ -141,7 +142,6 @@ int num_of_rounds =0;
             stopturn = true;
         }
          if (card2.GetRank() == 0 &&  card1.GetRank()!= 1 && !stopturn){
-            cout << "if2";
             //p2 won the 2 cards
             p2.SetCardesTaken(p2.cardesTaken()+(2+4*num_of_rounds));
             //update "last turn"
@@ -156,7 +156,6 @@ int num_of_rounds =0;
          }
 
         else if (card1.GetRank() < card2.GetRank() && !stopturn){
-            cout << "if3";
             //p2 won all the cards
             p2.SetCardesTaken(p2.cardesTaken()+(2+4*num_of_rounds));
             this->LastTurn = (p1.getName() + " played " + card1.ToString() +
@@ -171,7 +170,6 @@ int num_of_rounds =0;
         }
 
         else if (card1.GetRank() > card2.GetRank() && !stopturn){
-            cout << "if4";
             //p1 won all the cards
             p1.SetCardesTaken(p1.cardesTaken()+(2+4*num_of_rounds));
             this->LastTurn =(p1.getName() + " played " + card1.ToString() +" "+ p2.getName()+ " played " 
@@ -184,18 +182,18 @@ int num_of_rounds =0;
             stopturn = true;
         }
         
-        if (p1.stacksize() == 0 || p2.stacksize()==0 && !isover ){
+        if (p1.stacksize() == 0 || p2.stacksize()==0 && !GameOver ){
            p1.SetCardesTaken (p1.cardesTaken() + ((2+4*num_of_rounds)/2));
             p2.SetCardesTaken(p2.cardesTaken() +  ((2+4*num_of_rounds)/2)) ;   
-            isover = true;
+            GameOver = true;
         }
         }
     }
-     if ((p1.stacksize() == 0 || p2.stacksize()==0 ) && !isover)
-        isover = true;
+     if ((p1.stacksize() == 0 || p2.stacksize()==0 ) && !GameOver)
+        GameOver = true;
 
 
-if (isover){
+if (GameOver){
     if ( p1.cardesTaken() > p2.cardesTaken()){
         AddToWinners( p1.getName());
     }
@@ -215,6 +213,9 @@ void Game :: printLastTurn(){
 
 
 void Game ::  playAll(){
+     if (GameOver)
+        throw invalid_argument("Game has already ended");
+
     while (p1.stacksize() != 0 && p2.stacksize()!=0){
             playTurn();
     }

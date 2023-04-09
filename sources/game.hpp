@@ -15,22 +15,29 @@ using namespace ariel;
 
 class Game{
     private: 
-        Player p1{};
-        Player p2{};
+        Player &p1;
+        Player &p2;
         std:: vector <Card> cards_;
         //add something that help to know how won last turn
         string LastTurn;
         vector <string> winners;
         vector<string> AllTurns;
         int num_of_draws;
-    
+        bool GameOver;
     public:
 //constructors
-Game (Player pl1 , Player pl2) :
-    p1{std::move(pl1)},
-    p2{std::move(pl2)}
+Game (Player &pl1, Player &pl2) :
+    p1(pl1),
+    p2(pl2)
   {
-//std :: cout << "new game with : " + std::to_string(p1)+" "+ std::to_string(p2) << std::end1;
+  if (p1.stacksize() > 0 || p2.stacksize() > 0) {
+        throw invalid_argument("One of players has already registered");
+    }
+    if(&pl1 == &pl2)
+        GameOver = true;
+    else 
+        GameOver = false;
+
  // Initialize the deck with 52 cards
         for (int suit = Card::Hearts; suit <= Card::Spades; ++suit) {
             for (int rank = Card::Ace; rank <= Card::King; ++rank) {
@@ -50,12 +57,8 @@ Game (Player pl1 , Player pl2) :
       p2.GetStack().push_back(c2);
 
     }
-    // p1.stacksize() = p1.GetStack().size();
-    // p2.stacksize() = p2.GetStack().size();
     p1.SetStacksize(p1.GetStack().size());
     p2.SetStacksize(p2.GetStack().size());
-  cout << "stacks sizes: \n" << p1.stacksize();
-  cout << "\n"<< p2.stacksize()<<"\n";
     this->LastTurn = "";
     this->num_of_draws= 0;
     
